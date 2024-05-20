@@ -20,8 +20,7 @@ public class CoffeeMachine {
      */
 
     public static void main(String[] args) {
-        printMachineContents();
-        getUserChoice();
+        getUserChoiceLoop();
         /*int waterAmount = promptForWaterAmount();
         int milkAmount = promptForMilkAmount();
         int coffeBeansAmount = promptForCoffeeBeansAmount();
@@ -49,31 +48,37 @@ public class CoffeeMachine {
                 "$%d of money\n\n", amountOfWater, amountOfMilk, amountOfCoffee, amountOfCups, amountOfMoney);
     }
 
-    public static void getUserChoice() {
-        System.out.println("Write action (buy, fill, take):");
-        String choice = scanner.nextLine();
-        switch (choice.toLowerCase()) {
-            case "buy":
-                buyBeverage();
-                break;
-            case "fill":
-                fillMachine();
-                break;
-            case "take":
-                takeMoney();
-                break;
-            case "remaining":
-                printMachineContents();
-            case "exit":
-                return;
-            default:
-                getUserChoice();
+    public static void getUserChoiceLoop() {
+        while (true) {
+            System.out.println("Write action (buy, fill, take, remaining, exit):");
+            String choice = scanner.nextLine();
+            switch (choice.toLowerCase()) {
+                case "buy":
+                    buyBeverage();
+                    break;
+                case "fill":
+                    fillMachine();
+                    break;
+                case "take":
+                    takeMoney();
+                    break;
+                case "remaining":
+                    printMachineContents();
+                    break;
+                case "exit":
+                    return;
+            }
         }
+
     }
 
     public static void buyBeverage() {
-        System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:");
-        int choice = scanner.nextInt();
+        System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu:");
+        String userInput = scanner.nextLine();
+        if (userInput.equalsIgnoreCase("back")) {
+            return;
+        }
+        int choice = Integer.parseInt(userInput);
         switch (choice) {
             case 1:
                 makeBeverage(espresso);
@@ -106,11 +111,31 @@ public class CoffeeMachine {
     }
 
     public static void makeBeverage(Beverage beverage) {
-       amountOfWater -= beverage.requiredWater;
-       amountOfMilk -= beverage.requiredMilk;
-       amountOfCoffee -= beverage.requiredCoffee;
-       amountOfMoney += beverage.price;
-       amountOfCups--;
+        if (hasRequiredIngredients(beverage)) {
+            System.out.println("I have enough resources, making you a coffee!");
+            amountOfWater -= beverage.requiredWater;
+            amountOfMilk -= beverage.requiredMilk;
+            amountOfCoffee -= beverage.requiredCoffee;
+            amountOfMoney += beverage.price;
+            amountOfCups--;
+        }
+    }
+
+    public static boolean hasRequiredIngredients(Beverage beverage) {
+        if (beverage.requiredWater > amountOfWater) {
+            System.out.println("Sorry, not enough water!");
+            return false;
+        } else if (beverage.requiredMilk > amountOfMilk) {
+            System.out.println("Sorry, not enough milk!");
+            return false;
+        } else if (beverage.requiredCoffee > amountOfCoffee) {
+            System.out.println("Sorry, not enough coffee beans!");
+            return false;
+        } else if (amountOfCups <= 0) {
+            System.out.println("Sorry, not enough cups!");
+            return false;
+        }
+        return true;
     }
 
 
