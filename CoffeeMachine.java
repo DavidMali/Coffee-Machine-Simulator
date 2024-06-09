@@ -4,13 +4,13 @@ import static machine.CoffeeMachineState.*;
 
 public class CoffeeMachine {
 
-    public static CoffeeMachine coffeeMachine = new CoffeeMachine(400, 540, 120, 9, 550);
-    public int amountOfWater;
-    public int amountOfMilk;
-    public int amountOfCoffee;
-    public int amountOfCups;
-    public int amountOfMoney;
-    public CoffeeMachineState coffeeMachineState;
+    private static final CoffeeMachine coffeeMachine = new CoffeeMachine(400, 540, 120, 9, 550);
+    private int amountOfWater;
+    private int amountOfMilk;
+    private int amountOfCoffee;
+    private int amountOfCups;
+    private int amountOfMoney;
+    private CoffeeMachineState coffeeMachineState;
 
     private CoffeeMachine(int amountOfWater, int amountOfMilk, int amountOfCoffee, int amountOfCups, int amountOfMoney) {
         this.amountOfWater = amountOfWater;
@@ -19,6 +19,14 @@ public class CoffeeMachine {
         this.amountOfCups = amountOfCups;
         this.amountOfMoney = amountOfMoney;
         this.coffeeMachineState = MAIN_MENU;
+    }
+
+    public static CoffeeMachine getInstance() {
+        return coffeeMachine;
+    }
+
+    public CoffeeMachineState getCoffeeMachineState() {
+        return coffeeMachineState;
     }
 
 
