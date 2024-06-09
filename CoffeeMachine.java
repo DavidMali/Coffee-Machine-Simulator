@@ -1,21 +1,24 @@
 package machine;
 
-import java.util.Scanner;
-
 public class CoffeeMachine {
 
-    private static final Scanner scanner = new Scanner(System.in);
-    public static int amountOfWater = 400;
-    public static int amountOfMilk = 540;
-    public static int amountOfCoffee = 120;
-    public static int amountOfCups = 9;
-    public static int amountOfMoney = 550;
-    private enum machineState {
-        DEFAULT, BUY, FILL, TAKEMONEY, REMAINING
+    private static CoffeeMachine coffeeMachine = new CoffeeMachine(400, 540, 120, 9, 550);
+    public int amountOfWater;
+    public int amountOfMilk;
+    public int amountOfCoffee;
+    public int amountOfCups;
+    public int amountOfMoney;
+
+    private CoffeeMachine(int amountOfWater, int amountOfMilk, int amountOfCoffee, int amountOfCups, int amountOfMoney) {
+        this.amountOfWater = amountOfWater;
+        this.amountOfMilk = amountOfMilk;
+        this.amountOfCoffee = amountOfCoffee;
+        this.amountOfCups = amountOfCups;
+        this.amountOfMoney = amountOfMoney;
     }
 
 
-    public static void printMachineContents() {
+    public void printMachineContents() {
         System.out.printf("The coffee machine has:\n" +
                 "%d ml of water\n" +
                 "%d ml of milk\n" +
@@ -24,7 +27,7 @@ public class CoffeeMachine {
                 "$%d of money\n\n", amountOfWater, amountOfMilk, amountOfCoffee, amountOfCups, amountOfMoney);
     }
 
-    public static void processUserChoice(String choice) {
+    public void processUserChoice(String choice) {
         switch (choice.toLowerCase()) {
             case "buy":
                 buyBeverage();
@@ -42,7 +45,7 @@ public class CoffeeMachine {
 
     }
 
-    public static void buyBeverage() {
+    public void buyBeverage() {
         System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu:");
         String userInput = scanner.nextLine();
         if (userInput.equalsIgnoreCase("back")) {
@@ -69,7 +72,7 @@ public class CoffeeMachine {
 
     }
 
-    public static void fillMachine() {
+    public void fillMachine() {
         System.out.println("Write how many ml of water you want to add:");
         amountOfWater += scanner.nextInt();
         System.out.println("Write how many ml of milk you want to add:");
@@ -80,12 +83,12 @@ public class CoffeeMachine {
         amountOfCups += scanner.nextInt();
     }
 
-    public static void takeMoney() {
+    public void takeMoney() {
         System.out.println("I gave you $" + amountOfMoney);
         amountOfMoney = 0;
     }
 
-    public static void makeBeverage(Beverage beverage) {
+    public void makeBeverage(Beverage beverage) {
         if (hasRequiredIngredients(beverage)) {
             System.out.println("I have enough resources, making you a coffee!");
             amountOfWater -= beverage.requiredWater;
@@ -96,7 +99,7 @@ public class CoffeeMachine {
         }
     }
 
-    public static boolean hasRequiredIngredients(Beverage beverage) {
+    public boolean hasRequiredIngredients(Beverage beverage) {
         if (beverage.requiredWater > amountOfWater) {
             System.out.println("Sorry, not enough water!");
             return false;
