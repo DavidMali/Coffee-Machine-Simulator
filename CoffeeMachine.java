@@ -7,15 +7,15 @@ public class CoffeeMachine {
     private static final CoffeeMachine coffeeMachine = new CoffeeMachine(400, 540, 120, 9, 550);
     private int amountOfWater;
     private int amountOfMilk;
-    private int amountOfCoffee;
+    private int amountOfCoffeeBeans;
     private int amountOfCups;
     private int amountOfMoney;
     private CoffeeMachineState coffeeMachineState;
 
-    private CoffeeMachine(int amountOfWater, int amountOfMilk, int amountOfCoffee, int amountOfCups, int amountOfMoney) {
+    private CoffeeMachine(int amountOfWater, int amountOfMilk, int amountOfCoffeeBeans, int amountOfCups, int amountOfMoney) {
         this.amountOfWater = amountOfWater;
         this.amountOfMilk = amountOfMilk;
-        this.amountOfCoffee = amountOfCoffee;
+        this.amountOfCoffeeBeans = amountOfCoffeeBeans;
         this.amountOfCups = amountOfCups;
         this.amountOfMoney = amountOfMoney;
         this.coffeeMachineState = MAIN_MENU;
@@ -36,7 +36,7 @@ public class CoffeeMachine {
                 "%d ml of milk\n" +
                 "%d g of coffee beans\n" +
                 "%d disposable cups\n" +
-                "$%d of money\n\n", amountOfWater, amountOfMilk, amountOfCoffee, amountOfCups, amountOfMoney);
+                "$%d of money\n\n", amountOfWater, amountOfMilk, amountOfCoffeeBeans, amountOfCups, amountOfMoney);
     }
 
     public void processUserChoice(String choice) {
@@ -80,7 +80,7 @@ public class CoffeeMachine {
     }
 
     public void fillCoffeeBeans(int addedCoffeeBeans) {
-        amountOfCoffee += addedCoffeeBeans;
+        amountOfCoffeeBeans += addedCoffeeBeans;
     }
 
     public void fillCups(int addedCups) {
@@ -97,7 +97,7 @@ public class CoffeeMachine {
             System.out.println("I have enough resources, making you a coffee!");
             amountOfWater -= beverage.requiredWater;
             amountOfMilk -= beverage.requiredMilk;
-            amountOfCoffee -= beverage.requiredCoffeeBeans;
+            amountOfCoffeeBeans -= beverage.requiredCoffeeBeans;
             amountOfMoney += beverage.price;
             amountOfCups--;
         }
@@ -110,7 +110,7 @@ public class CoffeeMachine {
         } else if (beverage.requiredMilk > amountOfMilk) {
             System.out.println("Sorry, not enough milk!");
             return false;
-        } else if (beverage.requiredCoffeeBeans > amountOfCoffee) {
+        } else if (beverage.requiredCoffeeBeans > amountOfCoffeeBeans) {
             System.out.println("Sorry, not enough coffee beans!");
             return false;
         } else if (amountOfCups <= 0) {
@@ -120,13 +120,20 @@ public class CoffeeMachine {
         return true;
     }
 
-    public boolean validatePositiveInteger(String input) {
+    public Integer parsePositiveInteger(String input) {
         try {
-            return Integer.parseInt(input) >= 0;
-
+            int value = Integer.parseInt(input);
+            if (value >= 0) {
+                return value;
+            } else {
+                System.out.println("Invalid input, please input a valid positive number.");
+                return null;
+            }
         } catch (NumberFormatException e) {
-            return false;
+            System.out.println("Invalid input, please input a valid positive number.");
+            return null;
         }
+
     }
 
 }
