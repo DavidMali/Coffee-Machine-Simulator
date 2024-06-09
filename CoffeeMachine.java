@@ -47,6 +47,7 @@ public class CoffeeMachine {
         if (userInput.equalsIgnoreCase("back")) {
             return true;
         }
+        String errorMessage = "Invalid input, please select one of the available options.";
         try {
             int choice = Integer.parseInt(userInput);
             switch (choice) {
@@ -60,11 +61,11 @@ public class CoffeeMachine {
                     makeBeverage(Beverage.CAPPUCCINO);
                     return true;
                 default:
-                    System.out.println("Invalid input, try again");
+                    System.out.println(errorMessage);
                     return false;
             }
         } catch (Exception e) {
-            System.out.println("Invalid input, try again");
+            System.out.println(errorMessage);
             return false;
         }
 
