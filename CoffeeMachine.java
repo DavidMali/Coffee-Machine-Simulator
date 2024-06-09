@@ -52,13 +52,13 @@ public class CoffeeMachine {
             int choice = Integer.parseInt(userInput);
             switch (choice) {
                 case 1:
-                    makeBeverage(espresso);
+                    makeBeverage(Beverage.ESPRESSO);
                     break;
                 case 2:
-                    makeBeverage(latte);
+                    makeBeverage(Beverage.LATTE);
                     break;
                 case 3:
-                    makeBeverage(cappuccino);
+                    makeBeverage(Beverage.CAPPUCCINO);
                     break;
                 default:
                     buyBeverage();
@@ -90,7 +90,7 @@ public class CoffeeMachine {
             System.out.println("I have enough resources, making you a coffee!");
             amountOfWater -= beverage.requiredWater;
             amountOfMilk -= beverage.requiredMilk;
-            amountOfCoffee -= beverage.requiredCoffee;
+            amountOfCoffee -= beverage.requiredCoffeeBeans;
             amountOfMoney += beverage.price;
             amountOfCups--;
         }
@@ -103,7 +103,7 @@ public class CoffeeMachine {
         } else if (beverage.requiredMilk > amountOfMilk) {
             System.out.println("Sorry, not enough milk!");
             return false;
-        } else if (beverage.requiredCoffee > amountOfCoffee) {
+        } else if (beverage.requiredCoffeeBeans > amountOfCoffee) {
             System.out.println("Sorry, not enough coffee beans!");
             return false;
         } else if (amountOfCups <= 0) {
