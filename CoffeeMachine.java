@@ -18,7 +18,7 @@ public class CoffeeMachine {
         this.amountOfCoffee = amountOfCoffee;
         this.amountOfCups = amountOfCups;
         this.amountOfMoney = amountOfMoney;
-        this.coffeeMachineState = BUYING_MENU;
+        this.coffeeMachineState = MAIN_MENU;
     }
 
 
@@ -71,7 +71,7 @@ public class CoffeeMachine {
                     System.out.println("Invalid input, try again");
                     return false;
             }
-        }  catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Invalid input, try again");
             return false;
         }
@@ -89,13 +89,29 @@ public class CoffeeMachine {
         amountOfCoffee += scanner.nextInt();
         System.out.println("Write how many disposable cups you want to add:");
         amountOfCups += scanner.nextInt();
+    } */
+
+    public void fillWater(int addedWater) {
+        amountOfWater += addedWater;
+    }
+
+    public void fillMilk(int addedMilk) {
+        amountOfMilk += addedMilk;
+    }
+
+    public void fillCoffeeBeans(int addedCoffeeBeans) {
+        amountOfCoffee += addedCoffeeBeans;
+    }
+
+    public void fillCups(int addedCups) {
+        amountOfCups += addedCups;
     }
 
     public void takeMoney() {
         System.out.println("I gave you $" + amountOfMoney);
         amountOfMoney = 0;
     }
-    */
+
     public void makeBeverage(Beverage beverage) {
         if (hasRequiredIngredients(beverage)) {
             System.out.println("I have enough resources, making you a coffee!");
@@ -122,6 +138,18 @@ public class CoffeeMachine {
             return false;
         }
         return true;
+    }
+
+    public boolean validatePositiveInteger(String input) {
+        try {
+            if (Integer.parseInt(input) > 0) {
+                return true;
+            }
+            return false;
+
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
 }

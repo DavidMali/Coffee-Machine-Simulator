@@ -5,10 +5,10 @@ public enum Beverage {
     LATTE(350, 75, 20, 7),
     CAPPUCCINO(200, 100, 12, 6);
 
-    int requiredWater;
-    int requiredMilk;
-    int requiredCoffeeBeans;
-    int price;
+    final int requiredWater;
+    final int requiredMilk;
+    final int requiredCoffeeBeans;
+    final int price;
 
     Beverage(int requiredWater, int requiredMilk, int requiredCoffeeBeans, int price) {
         this.requiredWater = requiredWater;
