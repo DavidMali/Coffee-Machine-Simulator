@@ -10,8 +10,8 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         while (!(coffeeMachine.coffeeMachineState == CoffeeMachineState.POWERED_OFF)) {
             System.out.println(coffeeMachine.coffeeMachineState.getStateMessage());
-            String userChoice = scanner.nextLine();
-            coffeeMachine.processUserChoice(userChoice); // Hand userChoice to the processing function
+            String userInput = scanner.nextLine();
+            coffeeMachine.processUserChoice(userInput); // Hand userInput to the processing function
         }
         scanner.close();
         System.exit(0);

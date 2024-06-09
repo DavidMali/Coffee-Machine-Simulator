@@ -33,22 +33,6 @@ public class CoffeeMachine {
 
     public void processUserChoice(String choice) {
         coffeeMachineState = coffeeMachineState.next(this, choice);
-        /*
-        switch (choice.toLowerCase()) {
-            case "buy":
-                buyBeverage();
-                break;
-            case "fill":
-                fillMachine();
-                break;
-            case "take":
-                takeMoney();
-                break;
-            case "remaining":
-                printMachineContents();
-                break;
-        } */
-
     }
 
     public boolean buyBeverage(String userInput) {
@@ -77,19 +61,6 @@ public class CoffeeMachine {
         }
 
     }
-
-    /*
-
-    public void fillMachine() {
-        System.out.println("Write how many ml of water you want to add:");
-        amountOfWater += scanner.nextInt();
-        System.out.println("Write how many ml of milk you want to add:");
-        amountOfMilk += scanner.nextInt();
-        System.out.println("Write how many grams of coffee beans you want to add:");
-        amountOfCoffee += scanner.nextInt();
-        System.out.println("Write how many disposable cups you want to add:");
-        amountOfCups += scanner.nextInt();
-    } */
 
     public void fillWater(int addedWater) {
         amountOfWater += addedWater;
@@ -142,10 +113,7 @@ public class CoffeeMachine {
 
     public boolean validatePositiveInteger(String input) {
         try {
-            if (Integer.parseInt(input) > 0) {
-                return true;
-            }
-            return false;
+            return Integer.parseInt(input) >= 0;
 
         } catch (NumberFormatException e) {
             return false;
