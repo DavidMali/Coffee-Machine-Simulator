@@ -1,13 +1,16 @@
 package machine;
 
+import static machine.CoffeeMachineState.*;
+
 public class CoffeeMachine {
 
-    private static CoffeeMachine coffeeMachine = new CoffeeMachine(400, 540, 120, 9, 550);
+    public static CoffeeMachine coffeeMachine = new CoffeeMachine(400, 540, 120, 9, 550);
     public int amountOfWater;
     public int amountOfMilk;
     public int amountOfCoffee;
     public int amountOfCups;
     public int amountOfMoney;
+    public CoffeeMachineState coffeeMachineState;
 
     private CoffeeMachine(int amountOfWater, int amountOfMilk, int amountOfCoffee, int amountOfCups, int amountOfMoney) {
         this.amountOfWater = amountOfWater;
@@ -15,6 +18,7 @@ public class CoffeeMachine {
         this.amountOfCoffee = amountOfCoffee;
         this.amountOfCups = amountOfCups;
         this.amountOfMoney = amountOfMoney;
+        this.coffeeMachineState = BUYING_MENU;
     }
 
 
@@ -28,6 +32,8 @@ public class CoffeeMachine {
     }
 
     public void processUserChoice(String choice) {
+        coffeeMachineState = coffeeMachineState.next(this, choice);
+        /*
         switch (choice.toLowerCase()) {
             case "buy":
                 buyBeverage();
@@ -41,36 +47,38 @@ public class CoffeeMachine {
             case "remaining":
                 printMachineContents();
                 break;
-        }
+        } */
 
     }
 
-    public void buyBeverage() {
-        System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu:");
-        String userInput = scanner.nextLine();
+    public boolean buyBeverage(String userInput) {
         if (userInput.equalsIgnoreCase("back")) {
-            return;
+            return true;
         }
         try {
             int choice = Integer.parseInt(userInput);
             switch (choice) {
                 case 1:
                     makeBeverage(Beverage.ESPRESSO);
-                    break;
+                    return true;
                 case 2:
                     makeBeverage(Beverage.LATTE);
-                    break;
+                    return true;
                 case 3:
                     makeBeverage(Beverage.CAPPUCCINO);
-                    break;
+                    return true;
                 default:
-                    buyBeverage();
+                    System.out.println("Invalid input, try again");
+                    return false;
             }
         }  catch (Exception e) {
-            buyBeverage();
+            System.out.println("Invalid input, try again");
+            return false;
         }
 
     }
+
+    /*
 
     public void fillMachine() {
         System.out.println("Write how many ml of water you want to add:");
@@ -87,7 +95,7 @@ public class CoffeeMachine {
         System.out.println("I gave you $" + amountOfMoney);
         amountOfMoney = 0;
     }
-
+    */
     public void makeBeverage(Beverage beverage) {
         if (hasRequiredIngredients(beverage)) {
             System.out.println("I have enough resources, making you a coffee!");
