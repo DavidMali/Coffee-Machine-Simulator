@@ -10,9 +10,9 @@ public class CoffeeMachine {
     public static int amountOfCoffee = 120;
     public static int amountOfCups = 9;
     public static int amountOfMoney = 550;
-    private static final Beverage espresso = new Beverage(250, 0, 16, 4);
-    private static final Beverage latte = new Beverage(350, 75, 20, 7);
-    private static final Beverage cappuccino = new Beverage(200, 100, 12, 6);
+    private enum machineState {
+        DEFAULT, BUY, FILL, TAKEMONEY, REMAINING
+    }
 
 
     public static void printMachineContents() {
