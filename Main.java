@@ -2,8 +2,6 @@ package machine;
 
 import java.util.Scanner;
 
-import static machine.CoffeeMachine.*;
-
 public class Main {
     /* In this case the main method handles taking user Input and passing it to the CoffeeMachine */
     public static void main(String[] args) {
